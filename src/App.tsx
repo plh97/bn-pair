@@ -48,11 +48,13 @@ function App() {
     if (!sort.value || sort.direct % 3 === 0) {
       return recentTrade;
     }
-    return [...recentTrade].sort((tradeA: any, tradeB: any) => {
+    return [...recentTrade].sort((tradeA: Trade, tradeB: Trade) => {
+      const valueA = tradeA[sort.value as keyof Trade] as number;
+      const valueB = tradeB[sort.value as keyof Trade] as number;
       if (sort.direct % 3 === 1) {
-        return tradeB[sort.value] - tradeA[sort.value];
+        return valueB - valueA;
       }
-      return tradeA[sort.value] - tradeB[sort.value];
+        return valueA - valueB;
     });
   }, [recentTrade, sort]);
 
